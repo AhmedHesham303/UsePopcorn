@@ -50,26 +50,50 @@ export const tempWatchedData = [
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-function Nav() {
-  const [query, setQuery] = useState("");
+export default function App() {
+  return (
+    <>
+      <Nav />
+      <Main />
+    </>
+  );
+}
 
+function Nav() {
   return (
     <nav className="nav-bar">
-      <div className="logo">
-        <span role="img">🍿</span>
-        <h1>usePopcorn</h1>
-      </div>
-      <input
-        className="search"
-        type="text"
-        placeholder="Search movies..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <p className="num-results">
-        Found <strong>X</strong> results
-      </p>
+      <Logo />
+      <Search />
+      <NumResults />
     </nav>
+  );
+}
+
+function NumResults() {
+  <p className="num-results">
+    Found <strong>X</strong> results
+  </p>;
+}
+
+function Logo() {
+  return (
+    <div className="logo">
+      <span role="img">🍿</span>
+      <h1>usePopcorn</h1>
+    </div>
+  );
+}
+
+function Search() {
+  const [query, setQuery] = useState("");
+  return (
+    <input
+      className="search"
+      type="text"
+      placeholder="Search movies..."
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+    />
   );
 }
 
@@ -166,13 +190,5 @@ function Main() {
         )}
       </div>
     </main>
-  );
-}
-export default function App() {
-  return (
-    <>
-      <Nav />
-      <Main />
-    </>
   );
 }
