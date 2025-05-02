@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./Components/nav";
+import App from "./Components/Nav.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
