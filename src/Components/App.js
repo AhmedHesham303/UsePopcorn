@@ -57,7 +57,7 @@ export default function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [error, setError] = useState("");
-  const query = `cars`;
+  const query = `cahjhjrs`;
 
   useEffect(function () {
     async function fetchMovies() {
@@ -69,6 +69,8 @@ export default function App() {
         if (!res.ok)
           throw new Error("somthing went wrong with fetching movies");
         const data = await res.json();
+        if (data.Response === "False") throw new Error("Movie not found");
+
         setMovies(data.Search);
       } catch (err) {
         console.error(err.message);
