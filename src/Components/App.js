@@ -1,4 +1,4 @@
-import { da } from "@faker-js/faker";
+import { da, tr } from "@faker-js/faker";
 import { useEffect, useState } from "react";
 
 export const tempMovieData = [
@@ -56,17 +56,25 @@ export default function App() {
   const [watched, setWatched] = useState(tempWatchedData);
   const [movies, setMovies] = useState([]);
   const [isLoading, setisLoading] = useState(false);
+  const [error, setError] = useState("");
   const query = `cars`;
 
   useEffect(function () {
     async function fetchMovies() {
-      setisLoading(true);
-      const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-      );
-      const data = await res.json();
-      setMovies(data.Search);
-      setisLoading(false);
+      try {
+        setisLoading(true);
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+        );
+        if (!res.ok)
+          throw new Error("somthing went wrong with fetching movies");
+        const data = await res.json();
+        setMovies(data.Search);
+        setisLoading(false);
+      } catch (err) {
+        console.error(err.message);
+        setError(err.message);
+      }
     }
     fetchMovies();
   }, []);
@@ -78,7 +86,11 @@ export default function App() {
         <NumResults movies={movies} />
       </Nav>
       <Main>
-        <Box>{isLoading ? <Loader /> : <MovieList movies={movies} />}</Box>
+        <Box>
+          {isLoading && !error && <Loader />}
+          {!isLoading && !error && <MovieList movies={movies} />}
+          {error && <ErrorMessage message={error} />}
+        </Box>
         <Box>
           <WatchedSummary watched={watched} />
 
@@ -91,6 +103,15 @@ export default function App() {
 
 function Loader() {
   return <p className="loader">Loading...</p>;
+}
+
+function ErrorMessage({ message }) {
+  return (
+    <p className="error">
+      <span>❌</span>
+      {message}
+    </p>
+  );
 }
 
 function Nav({ children }) {
