@@ -59,7 +59,7 @@ export default function App() {
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
 
-  function handleSelectMovie(id) {
+  function onSelectMovie(id) {
     setSelectedId(id);
   }
   useEffect(
@@ -104,7 +104,7 @@ export default function App() {
         <Box>
           {isLoading && <Loader />}
           {!isLoading && !error && (
-            <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
+            <MovieList movies={movies} onSelectMovie={onSelectMovie} />
           )}
           {error && <ErrorMessage message={error} />}
         </Box>
@@ -190,23 +190,19 @@ function Box({ children }) {
   );
 }
 
-function MovieList({ movies, handleSelectMovie }) {
+function MovieList({ movies, onSelectMovie }) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
-        <Movie
-          movie={movie}
-          key={movie.imdbID}
-          onSelectMovie={handleSelectMovie}
-        />
+        <Movie movie={movie} key={movie.imdbID} onSelectMovie={onSelectMovie} />
       ))}
     </ul>
   );
 }
 
-function Movie({ movie, handleSelectMovie }) {
+function Movie({ movie, onSelectMovie }) {
   return (
-    <li onClick={() => handleSelectMovie(movie.imdbID)}>
+    <li onClick={() => onSelectMovie(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
