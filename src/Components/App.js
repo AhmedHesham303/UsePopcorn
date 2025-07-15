@@ -1,3 +1,4 @@
+import { da } from "@faker-js/faker";
 import { useEffect, useState } from "react";
 
 export const tempMovieData = [
@@ -51,14 +52,20 @@ export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 const KEY = `5cc4d82`;
+const query = `cars`;
 export default function App() {
   const [watched, setWatched] = useState(tempWatchedData);
 
   const [movies, setMovies] = useState([]);
   useEffect(function () {
-    fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=Cars`).then((res) =>
-      res.json().then((data) => setMovies(data.Search))
-    );
+    async function fetchMovies() {
+      const res = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+    }
+    fetchMovies();
   }, []);
 
   return (
