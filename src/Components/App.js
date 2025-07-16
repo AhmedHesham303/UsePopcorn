@@ -269,27 +269,9 @@ function MovieDetails({ selectedId, onCloseMovie }) {
         </div>
       </header>
       <section>
-        <StarRating maxRating={10} size={24} />
-        {/* <div className="rating">
-          {!isWatched ? (
-            <>
-              <StarRating
-                maxRating={10}
-                size={24}
-                onSetRating={setUserRating}
-              />
-              {userRating > 0 && (
-                <button className="btn-add" onClick={handleAdd}>
-                  + Add to list
-                </button>
-              )}
-            </>
-          ) : (
-            <p>
-              You rated with movie {watchedUserRating} <span>⭐️</span>
-            </p>
-          )}
-        </div> */}
+        <div className="rating">
+          <StarRating maxRating={10} size={24} />
+        </div>
         <p>
           <em>{plot}</em>
         </p>

@@ -67,8 +67,8 @@ function Star({
   size = 48,
 }) {
   const styleStar = {
-    width: `${48}px`,
-    height: `${48}px`,
+    width: `${size}px`,
+    height: `${size}px`,
     display: "block",
     cursor: "pointer",
     color,
