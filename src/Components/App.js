@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import StarRating from "./StarRating";
 export const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -269,6 +269,7 @@ function MovieDetails({ selectedId, onCloseMovie }) {
         </div>
       </header>
       <section>
+        <StarRating maxRating={10} size={24} />
         {/* <div className="rating">
           {!isWatched ? (
             <>
