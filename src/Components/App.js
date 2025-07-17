@@ -71,12 +71,6 @@ export default function App() {
     setWatched((watched) => [...watched, movie]);
   }
 
-  function checkWatched(id) {
-    for (let i = 0; i < watched.length; i++) {
-      if (id === watched[i].imdbID) return true;
-    }
-    return false;
-  }
   useEffect(
     function () {
       async function fetchMovies() {
@@ -129,7 +123,7 @@ export default function App() {
               selectedId={selectedId}
               onCloseMovie={handelCloseMovie}
               onAddWatched={handelAddWatchMovie}
-              checkWatched={checkWatched}
+              watched={watched}
             />
           ) : (
             <>
@@ -235,15 +229,11 @@ function Movie({ movie, onSelectMovie }) {
   );
 }
 
-function MovieDetails({
-  selectedId,
-  onCloseMovie,
-  onAddWatched,
-  checkWatched,
-}) {
+function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState(0);
+  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const {
     Title: title,
     Year: year,
@@ -310,9 +300,7 @@ function MovieDetails({
           </header>
           <section>
             <div className="rating">
-              {checkWatched(selectedId) ? (
-                <div>already watched</div>
-              ) : (
+              {!isWatched ? (
                 <>
                   <StarRating
                     maxRating={10}
@@ -325,6 +313,8 @@ function MovieDetails({
                     </button>
                   )}
                 </>
+              ) : (
+                <p>you rated this movie</p>
               )}
             </div>
 
