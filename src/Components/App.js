@@ -94,7 +94,6 @@ export default function App() {
           setMovies(data.Search);
           setError("");
         } catch (err) {
-          console.error(err.message);
           if (err.name !== "AbortError") {
             setError(err.message);
           }
@@ -108,6 +107,7 @@ export default function App() {
         setError("");
         return;
       }
+      handelCloseMovie();
       fetchMovies();
       return function () {
         controller.abort();
