@@ -54,7 +54,6 @@ export const average = (arr) =>
 const KEY = `5cc4d82`;
 export default function App() {
   const [query, setQuery] = useState("");
-  // const [watched, setWatched] = useState([]);
   const [watched, setWatched] = useState(function () {
     const storedValue = JSON.parse(localStorage.getItem("watched"));
     return storedValue;
