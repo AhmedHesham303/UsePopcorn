@@ -61,7 +61,7 @@ export default function App() {
   });
 
   const [selectedId, setSelectedId] = useState(null);
-  const { movies, isLoading, error } = useMovies(query, handelCloseMovie);
+  const { movies, isLoading, error } = useMovies(query);
 
   function onSelectMovie(id) {
     setSelectedId(id);
