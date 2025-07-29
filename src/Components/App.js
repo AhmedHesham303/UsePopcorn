@@ -56,7 +56,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [watched, setWatched] = useState(function () {
     const storedValue = JSON.parse(localStorage.getItem("watched"));
-    return storedValue;
+    return storedValue ?? [];
   });
 
   const [selectedId, setSelectedId] = useState(null);
@@ -147,9 +147,11 @@ function Nav({ children }) {
 }
 
 function NumResults({ movies }) {
-  <p className="num-results">
-    Found <strong>{movies.length}</strong> results
-  </p>;
+  return (
+    <p className="num-results">
+      Found <strong>{movies.length}</strong> results
+    </p>
+  );
 }
 
 function Logo() {
